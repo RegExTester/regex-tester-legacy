@@ -1,0 +1,7 @@
+{
+    "name": "regex-tester-api-dotnet",
+    "type": "docker",
+    "alias": [
+        "regex-tester-api-dotnet.now.sh"
+    ]
+}
