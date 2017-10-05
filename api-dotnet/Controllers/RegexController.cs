@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.PlatformAbstractions;
 using Newtonsoft.Json;
 using RegExTester.Api.DotNet.Models;
 using RegExTester.Api.DotNet.Services;
@@ -20,18 +19,6 @@ namespace RegExTester.Api.DotNet.Controllers
         public RegExController(IRegExProcessor regExProcessor)
         {
             this.RegExProcessor = regExProcessor;
-        }
-
-        // GET api/regex/version
-        [HttpGet]
-        [Route("version")]
-        public ActionResult Version()
-        {
-            return Json(new {
-                os = Environment.OSVersion.VersionString,
-                platform = Environment.OSVersion.Platform.ToString(),
-                framework = PlatformServices.Default.Application.RuntimeFramework.FullName
-            });
         }
 
         // GET api/regex?p=*&t=*&c=1
