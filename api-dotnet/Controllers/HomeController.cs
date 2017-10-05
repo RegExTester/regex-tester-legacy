@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,14 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace RegExTester.Api.DotNet.Controllers
 {
-    [Route("api")]
+    [Route("/")]
     public class HomeController : Controller
     {
-        // GET api/
+        // GET /
         [HttpGet]
-        public string Get()
+        public RedirectResult Get()
         {
-            return "RegExTester.Api.DotNet";
+            return Redirect("https://regextester.github.io/");
         }
     }
 }
