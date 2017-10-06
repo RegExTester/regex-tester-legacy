@@ -21,13 +21,14 @@ namespace RegExTester.Api.DotNet.Controllers
             this.RegExProcessor = regExProcessor;
         }
 
-        // GET api/regex?p=*&t=*&c=1
+        // GET api/regex?p=*&t=*&o=0
         [HttpGet]
-        public ActionResult Post(string p, string t, int? c)
+        public ActionResult Get(string p, string t, int? o)
         {
             var pattern = Uri.UnescapeDataString(p);
             var text = Uri.UnescapeDataString(t);
-            var result = RegExProcessor.Matches(pattern, text, c.HasValue && c != 0);
+            var options = o.HasValue ? (RegExTesterOptions)o : RegExTesterOptions.None;
+            var result = RegExProcessor.Matches(pattern, text, options);
             return Json(result);
         }
 
@@ -36,7 +37,7 @@ namespace RegExTester.Api.DotNet.Controllers
         public ActionResult Post([FromBody] Input model)
         {
             var processor = new RegExProcessor();
-            var result = RegExProcessor.Matches(model.Pattern, model.Text, model.ShowCaptures);
+            var result = RegExProcessor.Matches(model.Pattern, model.Text, model.Options);
             return Json(result);
         }
     }

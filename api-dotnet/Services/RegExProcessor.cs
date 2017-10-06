@@ -8,14 +8,16 @@ namespace RegExTester.Api.DotNet.Services
 {
     public interface IRegExProcessor
     {
-        dynamic Matches(string pattern, string text, bool showCaptures);
+        dynamic Matches(string pattern, string text, RegExTesterOptions options);
     }
 
     public class RegExProcessor : IRegExProcessor
     {
-        public dynamic Matches(string pattern, string text, bool showCaptures)
+        public dynamic Matches(string pattern, string text, RegExTesterOptions options)
         {
-            var regex = new Regex(pattern);
+            var showCaptures = options.HasFlag(RegExTesterOptions.ShowCaptures);
+            var regexOptions = showCaptures ? (RegexOptions)(options - RegExTesterOptions.ShowCaptures) : (RegexOptions)options;
+            var regex = new Regex(pattern, regexOptions);
             var matches = regex.Matches(text);
             var result = new {
                 //matches_count = matches.Count,
