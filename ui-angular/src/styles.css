@@ -1,0 +1,39 @@
+.bg-lightgrey {
+  background-color: #e5e5e5
+}
+
+div.container.margin-top {
+  margin-top: 2rem;
+}
+
+div.card.panel-primary-v3 > div.card-header {
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #337ab7;
+}
+
+div.card-header.small-padding {
+  padding: 0.5rem 1.25rem;
+}
+
+label.form-check-label {
+  cursor: pointer;
+}
+
+div.card.nav-card {
+  border: none;
+}
+
+div.card.nav-card > .card-header {
+  background-color: transparent;
+  padding-left: 0.6rem;
+}
+
+div.card.nav-card > .card-header a {
+  color: rgb(33, 37, 41);
+}
+
+div.card.nav-card > .card-body {
+  border: 1px solid rgba(0, 0, 0, .125);
+  border-top: none;
+}
