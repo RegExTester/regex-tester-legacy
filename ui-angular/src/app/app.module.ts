@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgModule } from '@angular/core';
-import { PanelModule } from 'primeng/primeng'
+import { FormsModule } from '@angular/forms';
+import { TextInputHighlightModule } from 'angular-text-input-highlight';
 
 import { AppComponent } from './app.component';
 
@@ -12,7 +13,8 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    PanelModule
+    FormsModule,
+    TextInputHighlightModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,17 +1,29 @@
 <div class="card panel-primary-v3">
   <div class="card-header small-padding">
-    <h3>RegEx Tester</h3>
+    <a class="text-white" href="/"><h3>RegEx Tester</h3></a>
   </div>
   <div class="card-body">
     <div class="row">
       <div class="col-md-9">
         <div class="form-group">
           <h6>Pattern</h6>
-          <textarea class="form-control" rows="3"></textarea>
+          <textarea #inputPattern [(ngModel)]="pattern"
+            rows="3" autocorrect="off" autocapitalize="none" spellcheck="false"
+            class="form-control input-text pattern">
+          </textarea>
         </div>
         <div class="form-group">
           <h6>Text</h6>
-          <textarea class="form-control" rows="7"></textarea>
+          <div mwlTextInputHighlightContainer>
+            <textarea #inputText mwlTextInputElement [(ngModel)]="text"
+              rows="5" autocorrect="off" autocapitalize="none" spellcheck="false"
+              class="form-control input-text text">
+            </textarea>
+            <mwl-text-input-highlight
+              [tags]="highlight"
+              [textInputElement]="inputText">
+            </mwl-text-input-highlight>
+          </div>
         </div>
       </div>
       <div class="col-md-3 options">
@@ -90,7 +102,8 @@
           </div>
           <div class="card-footer small-size blur">
             <a href="https://leevox.com" target="_blank">LeeVox</a><span> &copy; 2017</span>
-            <a target="_blank" href="https://github.com/RegExTester/regex-tester" title="Source Code"><img width="32px" height="32px" src="assets/img/github.png"/></a>
+            <a target="_blank" href="https://github.com/RegExTester/regex-tester" title="Source Code">
+              <img width="32px" height="32px" src="assets/img/github.png"/></a>
           </div>
         </div>
       </div>

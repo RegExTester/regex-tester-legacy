@@ -36,7 +36,6 @@ div.card.nav-card {
 
 div.card.nav-card > .card-header {
   background-color: transparent;
-  padding-left: 0.6rem;
 }
 
 div.card.nav-card > .card-header a {
@@ -55,4 +54,42 @@ div.card-footer.small-size {
   text-align: right;
   padding-right: 0rem;
   margin-bottom: -1.25rem;
+}
+
+/* textarea input */
+textarea.input-text {
+  resize: none;
+  background-color: #f7f7f7;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  font-size: 20px;
+  text-space: 1px;
+  font-family: Consolas, "Courier New", monospace;
+}
+textarea.input-text.pattern:focus {
+  background-color: #f7f7f7;
+}
+div.text-highlight-element {
+  background-color: #f7f7f7 !important;
+}
+.text-input-highlight-container .text-highlight-tag {
+  border-radius: 0px !important;
+  padding: 0px !important;
+  margin: 0px !important;
+}
+
+.match-1 {
+  background-color: lightblue;
+}
+.match-2 {
+  background-color: lightcoral;
+}
+.match-3 {
+  background-color: lightgreen;
+}
+.match-4 {
+  background-color: lightsalmon;
+}
+.match-5 {
+  background-color: lightsteelblue;
 }
