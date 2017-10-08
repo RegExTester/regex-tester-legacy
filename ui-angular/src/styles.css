@@ -73,9 +73,14 @@ div.text-highlight-element {
   background-color: #f7f7f7 !important;
 }
 .text-input-highlight-container .text-highlight-tag {
-  border-radius: 0px !important;
+  border-radius: 4px !important;
   padding: 0px !important;
   margin: 0px !important;
+}
+@media screen and (max-width: 768px) {
+  .text-input-highlight-container .text-highlight-element {
+    padding-left: 0.94rem !important;
+  }
 }
 
 .match-1 {
