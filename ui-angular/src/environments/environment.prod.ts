@@ -1,3 +1,6 @@
 export const environment = {
-  production: true
+  production: true,
+  apiServer: {
+    dotnet: 'https://regex-tester-api-dotnet.now.sh'
+  }
 };

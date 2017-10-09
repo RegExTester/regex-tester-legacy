@@ -1,3 +1,5 @@
+import { environment } from '../../environments/environment';
+
 export const CONFIG = {
   DELAY_TIME: 800,
   MATCH_COLORS_COUNT: 5,
@@ -15,9 +17,8 @@ export const CONFIG = {
   },
   API: {
     DOTNET: {
-      HOST: 'https://regex-tester-api-dotnet.now.sh',
-      GET: '/api/regex?p={pattern}&t={text}&o={options}',
-      POST: '/api/regex'
+      GET:    environment.apiServer.dotnet + '/api/regex?p={pattern}&t={text}&o={options}',
+      POST:   environment.apiServer.dotnet + '/api/regex'
     }
   }
 };

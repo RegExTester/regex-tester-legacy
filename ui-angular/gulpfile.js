@@ -17,6 +17,6 @@ gulp.task('adapt-github-page', ['ng-build'], function () {
 });
 
 gulp.task('build', ['adapt-github-page'], function () {
-  return gulp.src('dist/**.*')
+  return gulp.src('dist/**/*.*')
     .pipe(gulp.dest('../../regextester.github.io'));
 });
