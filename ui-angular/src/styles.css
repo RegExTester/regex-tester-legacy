@@ -83,18 +83,18 @@ div.text-highlight-element {
   }
 }
 
-.match-1 {
+.match-0 {
   background-color: lightblue;
 }
-.match-2 {
-  background-color: lightcoral;
-}
-.match-3 {
+.match-1 {
   background-color: lightgreen;
 }
-.match-4 {
+.match-2 {
   background-color: lightsalmon;
 }
-.match-5 {
-  background-color: lightsteelblue;
+.match-3 {
+  background-color: lightpink;
+}
+.match-4 {
+  background-color: lightslategrey;
 }
