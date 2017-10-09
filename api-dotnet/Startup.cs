@@ -25,6 +25,8 @@ namespace RegExTester.Api.DotNet
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
@@ -40,6 +42,12 @@ namespace RegExTester.Api.DotNet
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(
+                builder => builder.WithOrigins("https://regextester.github.io")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod()
+            );
 
             app.UseMvc();
         }
