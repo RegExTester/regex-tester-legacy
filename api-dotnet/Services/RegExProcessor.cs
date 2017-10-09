@@ -15,43 +15,51 @@ namespace RegExTester.Api.DotNet.Services
     {
         public dynamic Matches(string pattern, string text, RegExTesterOptions options)
         {
-            var showCaptures = options.HasFlag(RegExTesterOptions.ShowCaptures);
-            var regexOptions = showCaptures ? (RegexOptions)(options - RegExTesterOptions.ShowCaptures) : (RegexOptions)options;
-            var regex = new Regex(pattern, regexOptions);
-            var matches = regex.Matches(text);
             var result = new {
-                //matches_count = matches.Count,
-                matches = new List<dynamic>()
+                matches = new List<dynamic>(),
+                error = new List<string>()
             };
 
-            foreach (Match match in matches)
+            try
             {
-                var matchItem = new {
-                    name = match.Name,
-                    index = match.Index,
-                    length = match.Length,
-                    value = match.Value,
-                    //groups_count = match.Groups.Count,
-                    groups = new List<dynamic>(),
-                    //captures_count = showCaptures ? (int?)match.Captures.Count : null,
-                    captures = showCaptures ? GetCaptures(match.Captures) : null
-                };
+                var showCaptures = options.HasFlag(RegExTesterOptions.ShowCaptures);
+                var regexOptions = showCaptures ? (RegexOptions)(options - RegExTesterOptions.ShowCaptures) : (RegexOptions)options;
+                var regex = new Regex(pattern, regexOptions);
+                var matches = regex.Matches(text);
 
-                foreach (Group group in match.Groups)
+                foreach (Match match in matches)
                 {
-                    var groupItem = new {
-                        name = group.Name,
-                        index = group.Index,
-                        length = group.Length,
-                        value = group.Value,
-                        //captures_count = showCaptures ? (int?)group.Captures.Count : null,
-                        captures = showCaptures ? GetCaptures(group.Captures) : null
+                    var matchItem = new {
+                        name = match.Name,
+                        index = match.Index,
+                        length = match.Length,
+                        value = match.Value,
+                        //groups_count = match.Groups.Count,
+                        groups = new List<dynamic>(),
+                        //captures_count = showCaptures ? (int?)match.Captures.Count : null,
+                        captures = showCaptures ? GetCaptures(match.Captures) : null
                     };
 
-                    matchItem.groups.Add(groupItem);
-                }
+                    foreach (Group group in match.Groups)
+                    {
+                        var groupItem = new {
+                            name = group.Name,
+                            index = group.Index,
+                            length = group.Length,
+                            value = group.Value,
+                            //captures_count = showCaptures ? (int?)group.Captures.Count : null,
+                            captures = showCaptures ? GetCaptures(group.Captures) : null
+                        };
 
-                result.matches.Add(matchItem);
+                        matchItem.groups.Add(groupItem);
+                    }
+
+                    result.matches.Add(matchItem);
+                }
+            }
+            catch (Exception ex)
+            {
+                result.error.Add(ex.Message);
             }
 
             return result;

@@ -44,9 +44,13 @@ namespace RegExTester.Api.DotNet
             }
 
             app.UseCors(
-                builder => builder.WithOrigins("https://regextester.github.io")
-                                .AllowAnyHeader()
-                                .AllowAnyMethod()
+                builder => builder
+                    .WithOrigins("https://regextester.github.io")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    #if DEBUG
+                    .AllowAnyOrigin()
+                    #endif
             );
 
             app.UseMvc();
