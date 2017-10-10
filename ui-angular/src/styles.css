@@ -1,13 +1,10 @@
 a:hover {
   text-decoration: none !important;
 }
-.blur span, .blur a:not(hover), .blur img:not(hover) {
-  opacity: 0.3;
-}
-.blur a:hover, .blur img:hover {
-  opacity: 2;
-}
 
+.bg-transparent {
+  background-color: transparent;
+}
 .bg-lightgrey {
   background-color: #e5e5e5
 }
@@ -47,13 +44,19 @@ div.card.nav-card > .card-body {
   border-top: none;
 }
 
-div.card-footer.small-size {
+div.page-footer {
   background-color: transparent;
   border: none;
   font-size: smaller;
   text-align: right;
-  padding-right: 0rem;
-  margin-bottom: -1.25rem;
+  padding: 0 1.25rem 0.75rem;
+  margin-bottom: -0.25rem;
+}
+div.page-footer span, div.page-footer a:not(hover), div.page-footer img:not(hover) {
+  opacity: 0.3;
+}
+div.page-footer a:hover, div.page-footer img:hover {
+  opacity: 1;
 }
 
 /* textarea input */
@@ -85,7 +88,7 @@ div.text-highlight-element {
   padding: 0px !important;
   margin: 0px !important;
 }
-@media screen and (max-width: 768px) {
+@media only screen and (max-width: 768px) {
   .text-input-highlight-container .text-highlight-element {
     padding-left: 0.94rem !important;
   }

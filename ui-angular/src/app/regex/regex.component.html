@@ -10,7 +10,7 @@
           <div>
             <textarea #inputPattern [(ngModel)]="pattern" (ngModelChange)="delaySubmit()"
               rows="3" autocorrect="off" autocapitalize="none" spellcheck="false"
-              class="form-control input-text pattern">
+              class="form-control input-text pattern" placeholder="\w+">
             </textarea>
             <span class="error-message" [class.hidden]="!(result.error || '')">{{ (result.error || '') }}</span>
           </div>
@@ -21,7 +21,7 @@
             <div class="loading center center-text-textarea" [class.hidden]="!busy"></div>
             <textarea #inputText mwlTextInputElement [(ngModel)]="text" (ngModelChange)="delaySubmit()"
               rows="5" autocorrect="off" autocapitalize="none" spellcheck="false"
-              class="form-control input-text text" [class.busy]="busy">
+              class="form-control input-text text" [class.busy]="busy" placeholder="Input some text here">
             </textarea>
             <mwl-text-input-highlight
               [tags]="highlight"
@@ -30,14 +30,16 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3 options">
+      <div class="col-md-3 d-md-block d-none">
+        <!-- copy to #optionsPanel at the end of page (for mobile view) -->
         <h6>Options</h6>
-          <div class="form-check" *ngFor="let option of options">
-            <label class="form-check-label">
-              <input type="checkbox" class="form-check-input" value="{{option.value}}"
-              [(ngModel)]="option.checked" (ngModelChange)="delaySubmit(500)"> {{ option.name }}
-            </label>
-          </div>
+        <div class="form-check" *ngFor="let option of options">
+          <label class="form-check-label">
+            <input type="checkbox" class="form-check-input" value="{{option.value}}"
+            [(ngModel)]="option.checked" (ngModelChange)="delaySubmit(500)"> {{ option.name }}
+          </label>
+        </div>
+        <!-- end copy to #optionsPanel at the end of page (for mobile view) -->
       </div>
     </div>
     <div class="row">
@@ -65,13 +67,27 @@
               </div>
             </div>
           </div>
-          <div class="card-footer small-size blur">
-            <a href="https://leevox.com" target="_blank">LeeVox</a><span> &copy; 2017</span>
-            <a target="_blank" href="https://github.com/RegExTester/regex-tester" title="Source Code">
-              <img width="32px" height="32px" src="assets/img/github.png"/></a>
-          </div>
+          <div class="card-footer bg-transparent"></div>
         </div>
       </div>
     </div>
+    <div class="row d-block d-md-none">
+      <div class="col">
+        <!-- copy from #optionsPanel (for mobile view) -->
+        <h6>Options</h6>
+          <div class="form-check" *ngFor="let option of options">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" value="{{option.value}}"
+              [(ngModel)]="option.checked" (ngModelChange)="delaySubmit(500)"> {{ option.name }}
+            </label>
+          </div>
+        <!-- end copy from #optionsPanel (for mobile view) -->
+      </div>
+    </div>
+  </div>
+  <div class="card-footer page-footer">
+    <a href="https://leevox.com" target="_blank">LeeVox</a><span> &copy; 2017</span>
+    <a target="_blank" href="https://github.com/RegExTester/regex-tester" title="Source Code">
+      <img width="32px" height="32px" src="assets/img/github.png"/></a>
   </div>
 </div>
