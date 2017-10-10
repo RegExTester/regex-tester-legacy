@@ -23,6 +23,9 @@ namespace RegExTester.Api.DotNet.Controllers
         public ActionResult Version()
         {
             return Json(new {
+                #if DEBUG
+                debug = 1,
+                #endif
                 os = Environment.OSVersion.VersionString,
                 platform = Environment.OSVersion.Platform.ToString(),
                 framework = PlatformServices.Default.Application.RuntimeFramework.FullName
