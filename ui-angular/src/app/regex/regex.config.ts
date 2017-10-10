@@ -17,8 +17,8 @@ export const CONFIG = {
   },
   API: {
     DOTNET: {
-      GET:    environment.apiServer.dotnet + '/api/regex?p={pattern}&t={text}&o={options}',
-      POST:   environment.apiServer.dotnet + '/api/regex'
+      INFO:    environment.apiServer.dotnet + '/api/version',
+      REGEX:   environment.apiServer.dotnet + '/api/regex'
     }
   }
 };

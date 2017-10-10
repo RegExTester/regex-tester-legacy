@@ -8,7 +8,6 @@
         "outDir": "dist",
         "assets": [
             "assets",
-            "google-analytics.js",
             "favicon.png"
         ],
         "index": "index.html",

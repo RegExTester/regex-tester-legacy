@@ -8,17 +8,18 @@
         <div class="form-group">
           <h6>Pattern</h6>
           <div>
-            <textarea #inputPattern [(ngModel)]="pattern" (ngModelChange)="onModelChanged()"
+            <textarea #inputPattern [(ngModel)]="pattern" (ngModelChange)="delaySubmit()"
               rows="3" autocorrect="off" autocapitalize="none" spellcheck="false"
               class="form-control input-text pattern">
             </textarea>
+            <span class="error-message" [class.hidden]="!result.error">{{ result.error }}</span>
           </div>
         </div>
         <div class="form-group">
           <h6>Text</h6>
           <div mwlTextInputHighlightContainer>
             <div class="loading center center-text-textarea" [class.hidden]="!busy"></div>
-            <textarea #inputText mwlTextInputElement [(ngModel)]="text" (ngModelChange)="onModelChanged()"
+            <textarea #inputText mwlTextInputElement [(ngModel)]="text" (ngModelChange)="delaySubmit()"
               rows="5" autocorrect="off" autocapitalize="none" spellcheck="false"
               class="form-control input-text text" [class.busy]="busy">
             </textarea>
@@ -34,7 +35,7 @@
           <div class="form-check" *ngFor="let option of options">
             <label class="form-check-label">
               <input type="checkbox" class="form-check-input" value="{{option.value}}"
-              [(ngModel)]="option.checked" (ngModelChange)="onModelChanged()"> {{ option.name }}
+              [(ngModel)]="option.checked" (ngModelChange)="delaySubmit(500)"> {{ option.name }}
             </label>
           </div>
       </div>

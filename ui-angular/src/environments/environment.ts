@@ -5,6 +5,7 @@
 
 export const environment = {
   production: false,
+  googleAnalyticsId: '',
   apiServer: {
     dotnet: 'http://localhost:5000'
   }

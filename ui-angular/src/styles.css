@@ -110,6 +110,11 @@ div.text-highlight-element {
 .hidden {
   display: none;
 }
+span.error-message {
+  color: red;
+  font-size: smaller;
+  margin-left: 10%;
+}
 .center {
   margin: auto;
   left: 0;
