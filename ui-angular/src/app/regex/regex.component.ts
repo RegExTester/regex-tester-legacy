@@ -25,7 +25,7 @@ export class RegexComponent implements OnInit, OnDestroy {
     name: opt.Name, value: opt.Value, checked: false
   }));
 
-  result = {};
+  result: any = {};
   highlight: HighlightTag[] = [];
 
   constructor(private http: HttpClient,

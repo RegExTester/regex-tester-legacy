@@ -12,7 +12,7 @@
               rows="3" autocorrect="off" autocapitalize="none" spellcheck="false"
               class="form-control input-text pattern">
             </textarea>
-            <span class="error-message" [class.hidden]="!result.error">{{ result.error }}</span>
+            <span class="error-message" [class.hidden]="!(result.error || '')">{{ (result.error || '') }}</span>
           </div>
         </div>
         <div class="form-group">
