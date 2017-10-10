@@ -7,17 +7,20 @@
       <div class="col-md-9">
         <div class="form-group">
           <h6>Pattern</h6>
-          <textarea #inputPattern [(ngModel)]="pattern" (ngModelChange)="onModelChanged()"
-            rows="3" autocorrect="off" autocapitalize="none" spellcheck="false"
-            class="form-control input-text pattern">
-          </textarea>
+          <div>
+            <textarea #inputPattern [(ngModel)]="pattern" (ngModelChange)="onModelChanged()"
+              rows="3" autocorrect="off" autocapitalize="none" spellcheck="false"
+              class="form-control input-text pattern">
+            </textarea>
+          </div>
         </div>
         <div class="form-group">
           <h6>Text</h6>
           <div mwlTextInputHighlightContainer>
+            <div class="loading center center-text-textarea" [class.hidden]="!busy"></div>
             <textarea #inputText mwlTextInputElement [(ngModel)]="text" (ngModelChange)="onModelChanged()"
               rows="5" autocorrect="off" autocapitalize="none" spellcheck="false"
-              class="form-control input-text text">
+              class="form-control input-text text" [class.busy]="busy">
             </textarea>
             <mwl-text-input-highlight
               [tags]="highlight"

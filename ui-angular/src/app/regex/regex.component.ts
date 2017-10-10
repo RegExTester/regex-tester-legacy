@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { RegExTesterResult, Match } from '../../model/regextesterresult.model';
 import { EncodeUriHelper } from '../../utils/encodeUriBeauty';
@@ -14,7 +15,7 @@ import { CONFIG } from './regex.config';
 })
 export class RegexComponent implements OnInit, OnDestroy {
   sub;
-  delay;
+  debounceTimer;
   busy = false;
 
   engine = '';
@@ -30,6 +31,7 @@ export class RegexComponent implements OnInit, OnDestroy {
   constructor(private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
+    private location: Location,
     private encoder: EncodeUriHelper) {
   }
 
@@ -56,10 +58,10 @@ export class RegexComponent implements OnInit, OnDestroy {
   onModelChanged() {
     this.highlight = [];
 
-    if (this.delay !== null) {
-      clearTimeout(this.delay);
+    if (this.debounceTimer !== null) {
+      clearTimeout(this.debounceTimer);
     }
-    this.delay = setTimeout(() => {
+    this.debounceTimer = setTimeout(() => {
         this.submitRegEx();
     }, CONFIG.DELAY_TIME);
   }
@@ -76,7 +78,11 @@ export class RegexComponent implements OnInit, OnDestroy {
       options = optionsValue.toString();
 
     if (pattern && text) {
-      this.router.navigate([pattern, text, options || '', engine || '']);
+      this.location.replaceState('/{pattern}/{text}/{options}'
+        .replace('{pattern}', pattern)
+        .replace('{text}', text)
+        .replace('{options}', options)
+      );
 
       this.http.post<RegExTesterResult>(CONFIG.API.DOTNET.POST, {
         pattern: this.pattern,
@@ -85,16 +91,17 @@ export class RegexComponent implements OnInit, OnDestroy {
       }).subscribe(data  => {
         this.matches = JSON.stringify(data);
 
-        this.highlight = [];
-        let matchIndex = 0;
-        data.matches.forEach(match => {
-          this.highlight.push({
-            cssClass: 'match-' + (matchIndex++ % CONFIG.MATCH_COLORS_COUNT), indices: {start: match.index, end: match.index + match.length}
-          });
-        });
+        setTimeout(() => {
+          let matchIndex = 0;
+          this.highlight = data.matches.map(match => ({
+            cssClass: 'match-' + (matchIndex++ % CONFIG.MATCH_COLORS_COUNT),
+            indices: {start: match.index, end: match.index + match.length}
+          }));
+          this.busy = false;
+        }, CONFIG.DELAY_TIME);
       });
+    } else {
+      this.busy = false;
     }
-
-    this.busy = false;
   }
 }

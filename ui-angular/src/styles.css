@@ -57,6 +57,14 @@ div.card-footer.small-size {
 }
 
 /* textarea input */
+textarea.form-control:disabled {
+  background-color: #f7f7f7;
+}
+textarea.busy {
+  background-color: rgba(0,0,0,.15) !important;
+  opacity: 1;
+  z-index: 10 !important;
+}
 textarea.input-text {
   resize: none;
   background-color: #f7f7f7;
@@ -97,4 +105,32 @@ div.text-highlight-element {
 }
 .match-4 {
   background-color: lightslategrey;
+}
+
+.hidden {
+  display: none;
+}
+.center {
+  margin: auto;
+  left: 0;
+  right: 0;
+}
+.center-text-textarea {
+  margin-top: calc(143px / 2 - 16px);
+}
+.loading {
+  border: 5px solid rgba(0,0,0,.15);
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  z-index: 999;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
