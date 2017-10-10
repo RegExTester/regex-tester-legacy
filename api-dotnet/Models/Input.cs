@@ -9,5 +9,6 @@ namespace RegExTester.Api.DotNet.Models
         public RegExTesterOptions Options { get; set; }
         public string Pattern { get; set; }
         public string Text { get; set; }
+        public string Replace { get; set; }
     }
 }

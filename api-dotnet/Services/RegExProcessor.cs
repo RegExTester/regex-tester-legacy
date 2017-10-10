@@ -8,17 +8,16 @@ namespace RegExTester.Api.DotNet.Services
 {
     public interface IRegExProcessor
     {
-        dynamic Matches(string pattern, string text, RegExTesterOptions options);
+        dynamic Matches(string pattern, string text, string replace, RegExTesterOptions options);
     }
 
     public class RegExProcessor : IRegExProcessor
     {
-        public dynamic Matches(string pattern, string text, RegExTesterOptions options)
+        public dynamic Matches(string pattern, string text, string replace, RegExTesterOptions options)
         {
-            var result = new {
-                matches = new List<dynamic>(),
-                error = new List<string>()
-            };
+            string error = null;
+            string replaceResult = null;
+            var matchesResult = new List<dynamic>();
 
             try
             {
@@ -54,15 +53,24 @@ namespace RegExTester.Api.DotNet.Services
                         matchItem.groups.Add(groupItem);
                     }
 
-                    result.matches.Add(matchItem);
+                    matchesResult.Add(matchItem);
+                }
+
+                if (replace != null)
+                {
+                    replaceResult = regex.Replace(text, replace);
                 }
             }
             catch (Exception ex)
             {
-                result.error.Add(ex.Message);
+                error = ex.Message;
             }
 
-            return result;
+            return new {
+                error = error,
+                replace = replaceResult,
+                matches = matchesResult
+            };
         }
 
         private List<dynamic> GetCaptures(CaptureCollection captures)
