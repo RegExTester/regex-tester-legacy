@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, ElementRef, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -15,17 +15,21 @@ import { CONFIG } from './regex.config';
   providers: [ EncodeUriHelper, GtagHelper ]
 })
 export class RegexComponent implements OnInit, OnDestroy {
+  @ViewChild('tabReplace') tabReplace: ElementRef;
+
   routeSubscribe;
   debounceTimer;
   busy = false;
 
   pattern = '';
   text = '';
+  replace = '';
   options = Object.values(CONFIG.REGEX_OPTIONS).map(opt => ({
     name: opt.Name, value: opt.Value, checked: false
   }));
 
   result: any = {};
+  resultTable: any = [];
   highlight: HighlightTag[] = [];
 
   constructor(private http: HttpClient,
@@ -95,9 +99,11 @@ export class RegexComponent implements OnInit, OnDestroy {
     this.http.post<RegExTesterResult>(CONFIG.API.DOTNET.REGEX, {
       pattern: this.pattern,
       text: this.text,
+      replace: this.tabReplace.nativeElement.classList.contains('active') ? this.replace : null,
       options: options
     }).subscribe(data  => {
       this.result = data;
+      this.flatternResult();
 
       setTimeout(() => {
         let matchIndex = 0;
@@ -108,5 +114,36 @@ export class RegexComponent implements OnInit, OnDestroy {
         this.busy = false;
       }, CONFIG.DELAY_TIME);
     });
+  }
+
+  flatternResult() {
+    const matches = this.result.matches;
+    let match, group, table = [];
+
+    for (let matchIndex = 0; matchIndex < matches.length; matchIndex++) {
+      match = matches[matchIndex];
+      for (let groupIndex = 1; groupIndex < match.groups.length; groupIndex++) {
+        group = match.groups[groupIndex];
+
+        table.push({
+          match: groupIndex > 1 ? undefined : {
+            name: match.name,
+            index: match.index,
+            length: match.length,
+            value: match.value,
+            class: 'match-' + (matchIndex % CONFIG.MATCH_COLORS_COUNT),
+            rowspan: match.groups.length - 1,
+          },
+          group: {
+            name: group.name,
+            index: group.index,
+            length: group.length,
+            value: group.value
+          }
+        });
+      }
+    }
+
+    this.resultTable = table;
   }
 }

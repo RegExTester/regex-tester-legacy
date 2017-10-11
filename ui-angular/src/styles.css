@@ -63,12 +63,12 @@ div.page-footer a:hover, div.page-footer img:hover {
 textarea.form-control:disabled {
   background-color: #f7f7f7;
 }
-textarea.busy {
+textarea.readonly {
   background-color: rgba(0,0,0,.15) !important;
   opacity: 1;
   z-index: 10 !important;
 }
-textarea.input-text {
+textarea.input-text, input.input-text {
   resize: none;
   background-color: #f7f7f7;
   overflow-x: hidden;
@@ -83,7 +83,7 @@ textarea.input-text.pattern:focus {
 div.text-highlight-element {
   background-color: #f7f7f7 !important;
 }
-.text-input-highlight-container .text-highlight-tag {
+.text-highlight-tag {
   border-radius: 4px !important;
   padding: 0px !important;
   margin: 0px !important;
@@ -141,4 +141,18 @@ span.error-message {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* result table */
+table.th-center th {
+  text-align: center;
+}
+table.align-middle td {
+  padding: 0.25rem 0.5rem;
+}
+table.align-middle td.number {
+  text-align: right;
+}
+table.align-middle td[rowspan] {
+  vertical-align: middle;
 }
