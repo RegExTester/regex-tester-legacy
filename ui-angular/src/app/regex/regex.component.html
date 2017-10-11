@@ -60,47 +60,62 @@
           <div class="card-body">
             <div class="tab-content">
               <div class="tab-pane fade show active" id="tabMatches" role="tabpanel">
-                <table class="table table-bordered table-sm th-center align-middle" *ngIf="resultTable.length || 0">
-                  <thead>
-                    <tr>
-                      <th colspan="3">Matches</th>
-                      <th colspan="4">Groups</th>
-                    </tr>
-                    <tr>
-                      <!-- match -->
-                      <!--<th>Name</th>-->
-                      <th>Value</th>
-                      <th>Index</th>
-                      <th>Length</th>
-                      <!-- group -->
-                      <th>Name</th>
-                      <th>Index</th>
-                      <th>Length</th>
-                      <th>Value</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let item of resultTable">
-                      <!-- match -->
-                      <!--<td [attr.rowspan]="item?.match?.rowspan" *ngIf="item.match">{{ item.match.name }}</td>-->
-                      <td [attr.rowspan]="item?.match?.rowspan" *ngIf="item.match"><span class="text-highlight-tag p-1" [ngClass]="[item.match.class]">{{ item.match.value }}</span></td>
-                      <td [attr.rowspan]="item?.match?.rowspan" *ngIf="item.match" class="number">{{ item.match.index }}</td>
-                      <td [attr.rowspan]="item?.match?.rowspan" *ngIf="item.match" class="number">{{ item.match.length }}</td>
-
-                      <!-- group -->
-                      <td>{{ item?.group?.name }}</td>
-                      <td class="number">{{ item?.group?.index }}</td>
-                      <td class="number">{{ item?.group?.length }}</td>
-                      <td>{{ item?.group?.value }}</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div class="card match-result" *ngFor="let match of result.matches; let i = index">
+                  <div class="card-header" (click)="expandMatchReult[i] = !expandMatchReult[i]">
+                    <span class="result-value" [ngClass]="'match-' + (i % CONFIG.MATCH_COLORS_COUNT)">{{ match.value }}</span>
+                    <small><em>Index: {{ match.index }}, Length: {{ match.length }}</em></small>
+                  </div>
+                  <div class="card-body" *ngIf="expandMatchReult[i]">
+                    <div class="p-1">
+                    <h6>Groups</h6>
+                    <ul class="list-group small">
+                      <li class="list-group-item header">
+                        <div class="row">
+                          <div class="col">Name</div>
+                          <div class="col">Value</div>
+                          <div class="col">Index</div>
+                          <div class="col">Length</div>
+                        </div>
+                      </li>
+                      <li class="list-group-item" *ngFor="let group of match.groups">
+                        <div class="row">
+                          <div class="col">{{group.name}}</div>
+                          <div class="col">{{group.value}}</div>
+                          <div class="col">{{group.index}}</div>
+                          <div class="col">{{group.length}}</div>
+                        </div>
+                      </li>
+                    </ul>
+                    </div>
+                    <div class="p-1" *ngIf="match.captures">
+                      <h6>Captures</h6>
+                      <ul class="list-group small">
+                        <li class="list-group-item header">
+                          <div class="row">
+                            <div class="col"></div>
+                            <div class="col">Value</div>
+                            <div class="col">Index</div>
+                            <div class="col">Length</div>
+                          </div>
+                        </li>
+                        <li class="list-group-item" *ngFor="let capture of match.captures">
+                          <div class="row">
+                            <div class="col"></div>
+                            <div class="col">{{capture.value}}</div>
+                            <div class="col">{{capture.index}}</div>
+                            <div class="col">{{capture.length}}</div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div #tabReplace class="tab-pane fade" id="tabReplace" role="tabpanel">
                 <div class="form-group">
                   <label for="inputReplace">Replace To</label>
-                  <input #inputReplace id="inputReplace" [(ngModel)]="replace" (ngModelChange)="delaySubmit()"
-                     type="text" class="form-control input-text" autocorrect="off" autocapitalize="none" spellcheck="false" />
+                  <input #inputReplace id="inputReplace" [(ngModel)]="replace" (ngModelChange)="delaySubmit()" type="text"
+                     placeholder="Input some text here" class="form-control input-text" autocorrect="off" autocapitalize="none" spellcheck="false" />
                 </div>
                 <div class="form-group">
                   <label for="inputReplace">Result</label>

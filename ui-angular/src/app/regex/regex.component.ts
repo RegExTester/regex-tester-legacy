@@ -17,10 +17,13 @@ import { CONFIG } from './regex.config';
 })
 export class RegexComponent implements OnInit, OnDestroy {
   @ViewChild('tabReplace') tabReplace: ElementRef;
+  CONFIG = CONFIG;
 
   routeSubscribe;
   debounceTimer;
   busy = false;
+
+  expandMatchReult = {};
 
   pattern = '';
   text = '';
@@ -30,7 +33,6 @@ export class RegexComponent implements OnInit, OnDestroy {
   }));
 
   result: any = {};
-  resultTable: any = [];
   highlight: HighlightTag[] = [];
 
   constructor(private http: HttpClient,
@@ -87,6 +89,7 @@ export class RegexComponent implements OnInit, OnDestroy {
 
     this.busy = true;
     this.result = {};
+    this.expandMatchReult = {};
     this.highlight = [];
 
     const pattern = this.encoder.encodeBase64(this.pattern || ''),
@@ -98,11 +101,7 @@ export class RegexComponent implements OnInit, OnDestroy {
       event: 'regex',
       category: this.pattern,
       action: this.text,
-      label: options.toString(),
-
-      facebook: {
-
-      }
+      label: options.toString()
     });
 
     this.http.post<RegExTesterResult>(CONFIG.API.DOTNET.REGEX, {
@@ -112,7 +111,6 @@ export class RegexComponent implements OnInit, OnDestroy {
       options: options
     }).subscribe(data  => {
       this.result = data;
-      this.flatternResult();
 
       setTimeout(() => {
         let matchIndex = 0;
@@ -123,37 +121,6 @@ export class RegexComponent implements OnInit, OnDestroy {
         this.busy = false;
       }, CONFIG.DELAY_TIME);
     });
-  }
-
-  flatternResult() {
-    const matches = this.result.matches;
-    let match, group, table = [];
-
-    for (let matchIndex = 0; matchIndex < matches.length; matchIndex++) {
-      match = matches[matchIndex];
-      for (let groupIndex = 0; groupIndex < match.groups.length; groupIndex++) {
-        group = match.groups[groupIndex];
-
-        table.push({
-          match: groupIndex > 0 ? undefined : {
-            name: match.name,
-            index: match.index,
-            length: match.length,
-            value: match.value,
-            class: 'match-' + (matchIndex % CONFIG.MATCH_COLORS_COUNT),
-            rowspan: match.groups.length,
-          },
-          group: {
-            name: group.name,
-            index: group.index,
-            length: group.length,
-            value: group.value
-          }
-        });
-      }
-    }
-
-    this.resultTable = table;
   }
 
   updateUrl(url: string, seo: any) {

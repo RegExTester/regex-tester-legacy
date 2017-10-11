@@ -143,16 +143,22 @@ span.error-message {
   100% { transform: rotate(360deg); }
 }
 
-/* result table */
-table.th-center th {
-  text-align: center;
-}
-table.align-middle td {
+/* matches result */
+span.result-value {
   padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
 }
-table.align-middle td.number {
-  text-align: right;
+.card.match-result {
+  margin-bottom: 0.25rem;
 }
-table.align-middle td[rowspan] {
-  vertical-align: middle;
+.card.match-result > .card-header {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+.card.match-result > .card-body {
+  padding: 0.5rem 1.5rem;
+}
+li.header {
+  background-color: rgba(0,0,0,.03);
 }
