@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy, ElementRef, ViewChild} from '@angular/core
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { Meta } from '@angular/platform-browser';
 import { HighlightTag } from 'angular-text-input-highlight';
 import { RegExTesterResult, Match } from '../../model/regextesterresult.model';
 import { EncodeUriHelper } from '../../utils/encodeUriHelper';
@@ -33,6 +34,7 @@ export class RegexComponent implements OnInit, OnDestroy {
   highlight: HighlightTag[] = [];
 
   constructor(private http: HttpClient,
+    private meta: Meta,
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
@@ -92,9 +94,16 @@ export class RegexComponent implements OnInit, OnDestroy {
       options = this.options.reduce((sum, option) => sum + (option.checked ? option.value : 0), 0),
       url = '/{pattern}/{text}/{options}'.replace('{pattern}', pattern).replace('{text}', text).replace('{options}', options.toString());
 
-    this.location.replaceState(url);
-    this.gtag.updatePath(url);
-    this.gtag.trackEvent('regex', this.pattern, this.text, options.toString());
+    this.updateUrl(url, {
+      event: 'regex',
+      category: this.pattern,
+      action: this.text,
+      label: options.toString(),
+
+      facebook: {
+
+      }
+    });
 
     this.http.post<RegExTesterResult>(CONFIG.API.DOTNET.REGEX, {
       pattern: this.pattern,
@@ -122,17 +131,17 @@ export class RegexComponent implements OnInit, OnDestroy {
 
     for (let matchIndex = 0; matchIndex < matches.length; matchIndex++) {
       match = matches[matchIndex];
-      for (let groupIndex = 1; groupIndex < match.groups.length; groupIndex++) {
+      for (let groupIndex = 0; groupIndex < match.groups.length; groupIndex++) {
         group = match.groups[groupIndex];
 
         table.push({
-          match: groupIndex > 1 ? undefined : {
+          match: groupIndex > 0 ? undefined : {
             name: match.name,
             index: match.index,
             length: match.length,
             value: match.value,
             class: 'match-' + (matchIndex % CONFIG.MATCH_COLORS_COUNT),
-            rowspan: match.groups.length - 1,
+            rowspan: match.groups.length,
           },
           group: {
             name: group.name,
@@ -145,5 +154,14 @@ export class RegexComponent implements OnInit, OnDestroy {
     }
 
     this.resultTable = table;
+  }
+
+  updateUrl(url: string, seo: any) {
+    this.location.replaceState(url);
+    this.gtag.updatePath(url);
+    this.gtag.trackEvent(seo.event, seo.category, seo.action, seo.label);
+
+    this.meta.updateTag({name: 'og:url', content: url});
+    this.meta.updateTag({name: 'og:description', content: 'Pattern: ' + this.pattern});
   }
 }
