@@ -13,6 +13,25 @@ div.container.margin-top {
   margin-top: 2rem;
 }
 
+.btn-engine-info {
+  cursor: pointer;
+  color: rgba(255,255,255,0.8);
+}
+
+.btn-engine-info:hover:after {
+  content: attr(data-tooltip);
+  position: absolute;
+  background-color: #343a40;
+  color: #fff;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-size: 1rem;
+  top: 2rem;
+  right: 0;
+  z-index: 99;
+}
+
 div.card.panel-primary-v3 > div.card-header {
   color: #fff;
   background-color: #337ab7;

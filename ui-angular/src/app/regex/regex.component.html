@@ -1,6 +1,22 @@
 <div class="card panel-primary-v3">
   <div class="card-header small-padding">
-    <a class="text-white" href="/"><h3>RegEx Tester</h3></a>
+    <div class="row">
+      <div class="col-6"><a class="text-white" href="/"><h3>RegEx Tester</h3></a></div>
+      <div class="col p-0">
+        <i class="btn btn-icon btn-engine-info fa fa-info-circle pull-right" aria-hidden="true" [attr.data-tooltip]="engine"></i>
+        <div class="dropdown position-static pull-right">
+          <button class="btn btn-secondary dropdown-toggle bg-transparent disabled" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            .Net
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">.Net</a>
+            <a class="dropdown-item" href="#">Python</a>
+            <a class="dropdown-item" href="#">Java</a>
+            <a class="dropdown-item" href="#">JavaScript</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="card-body">
     <div class="row">

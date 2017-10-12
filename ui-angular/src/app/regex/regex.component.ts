@@ -25,6 +25,7 @@ export class RegexComponent implements OnInit, OnDestroy {
 
   expandMatchReult = {};
 
+  engine = '';
   pattern = '';
   text = '';
   replace = '';
@@ -66,7 +67,7 @@ export class RegexComponent implements OnInit, OnDestroy {
 
   warmUpApiServer() {
     this.http.get<any>(CONFIG.API.DOTNET.INFO).subscribe(data => {
-      console.log('Engine: ' + data.framework);
+      this.engine = data.framework;
     });
   }
 
