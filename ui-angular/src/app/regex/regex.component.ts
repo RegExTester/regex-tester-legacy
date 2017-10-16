@@ -25,7 +25,7 @@ export class RegexComponent implements OnInit, OnDestroy {
 
   expandMatchReult = {};
 
-  engine = '';
+  engine = 'warming up...';
   pattern = '';
   text = '';
   replace = '';
