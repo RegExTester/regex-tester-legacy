@@ -66,9 +66,11 @@ export class RegexComponent implements OnInit, OnDestroy {
   }
 
   warmUpApiServer() {
-    this.http.get<any>(CONFIG.API.DOTNET.INFO).subscribe(data => {
-      this.engine = data.framework;
-    });
+    this.http.get<any>(CONFIG.API.DOTNET.INFO)
+      .subscribe(
+        data => this.engine = data.framework,
+        error => this.engine = 'API server is offline.'
+      );
   }
 
   /** debounce user input */
@@ -110,18 +112,24 @@ export class RegexComponent implements OnInit, OnDestroy {
       text: this.text,
       replace: this.tabReplace.nativeElement.classList.contains('active') ? this.replace : null,
       options: options
-    }).subscribe(data  => {
-      this.result = data;
+    }).subscribe(
+      data => {
+        this.result = data;
 
-      setTimeout(() => {
-        let matchIndex = 0;
-        this.highlight = data.matches.map(match => ({
-          cssClass: 'match-' + (matchIndex++ % CONFIG.MATCH_COLORS_COUNT),
-          indices: {start: match.index, end: match.index + match.length}
-        }));
+        setTimeout(() => {
+          let matchIndex = 0;
+          this.highlight = data.matches.map(match => ({
+            cssClass: 'match-' + (matchIndex++ % CONFIG.MATCH_COLORS_COUNT),
+            indices: {start: match.index, end: match.index + match.length}
+          }));
+          this.busy = false;
+        }, CONFIG.DELAY_TIME);
+      },
+      error => {
+        this.result = { error: 'Error: Cannot contact the API.' };
         this.busy = false;
-      }, CONFIG.DELAY_TIME);
-    });
+      }
+    );
   }
 
   updateUrl(url: string, seo: any) {
