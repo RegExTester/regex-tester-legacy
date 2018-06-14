@@ -25,7 +25,7 @@ export class RegexComponent implements OnInit, OnDestroy {
 
   expandMatchReult = {};
 
-  engine = 'warming up...';
+  engine = '';
   pattern = '';
   text = '';
   replace = '';
@@ -69,7 +69,7 @@ export class RegexComponent implements OnInit, OnDestroy {
     this.http.get<any>(CONFIG.API.DOTNET.INFO)
       .subscribe(
         data => this.engine = data.framework,
-        error => this.engine = 'API server is offline.'
+        error => this.engine = 'offline'
       );
   }
 

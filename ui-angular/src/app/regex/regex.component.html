@@ -3,7 +3,9 @@
     <div class="row">
       <div class="col-6"><a class="text-white" href="/"><h3>RegEx Tester</h3></a></div>
       <div class="col p-0">
-        <i class="btn btn-icon btn-engine-info fa fa-info-circle pull-right" aria-hidden="true" [attr.data-tooltip]="engine"></i>
+        <div class="engine-info" [attr.data-tooltip]="engine=='' ? 'Loading...' : engine=='offline' ? 'Offline' : engine">
+            <i class="btn btn-icon btn-engine-info fa pull-right" aria-hidden="true" [ngClass]="engine=='' ? 'fa-spinner fa-pulse' : engine == 'offline' ? 'fa-exclamation-circle' : 'fa-info-circle'"></i>
+        </div>
         <div class="dropdown position-static pull-right">
           <button class="btn btn-secondary dropdown-toggle bg-transparent disabled" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             .Net

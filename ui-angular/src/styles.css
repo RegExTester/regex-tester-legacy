@@ -13,12 +13,12 @@ div.container.margin-top {
   margin-top: 2rem;
 }
 
-.btn-engine-info {
+div.engine-info {
   cursor: pointer;
   color: rgba(255,255,255,0.8);
 }
 
-.btn-engine-info:hover:after {
+div.engine-info:hover:after {
   content: attr(data-tooltip);
   position: absolute;
   background-color: #343a40;
@@ -30,6 +30,10 @@ div.container.margin-top {
   top: 2rem;
   right: 0;
   z-index: 99;
+}
+
+i.btn-engine-info {
+  line-height: 1.5;
 }
 
 div.card.panel-primary-v3 > div.card-header {
